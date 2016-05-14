@@ -1,0 +1,4 @@
+[submodule "Compressonator"]
+	path = Compressonator
+	url = ../Compressonator
+	branch = master
