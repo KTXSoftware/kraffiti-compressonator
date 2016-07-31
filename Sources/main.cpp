@@ -15,8 +15,6 @@ static bool CompressionCallback(float fProgress, DWORD_PTR pUser1, DWORD_PTR pUs
 }
 
 dynfunc void encode(int width, int height, int stride, int format, unsigned char* pixels_, int* out_width, int* out_height, int* out_size, void** out_data) {
-	char*     pszSourceFile = "infile";
-	char*     pszDestFile = "outfile";
 	CMP_FORMAT destFormat = CMP_FORMAT_ASTC;
 
 	CMP_Texture srcTexture;

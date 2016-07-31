@@ -26,7 +26,7 @@ project.addFiles('Compressonator/Common/Lib/Ext/OpenEXR/v1.4.0/Source/Half/half.
 //project.addDefine('USE_SSE');
 //project.addDefine('USE_SSE2');
 project.addDefine('WIN32');
-project.addDefine('_DEBUG');
+//project.addDefine('_DEBUG');
 project.addDefine('_LIB');
 project.addDefine('HALF_NO_STD');
 project.addDefine('_ITERATOR_DEBUG_LEVEL=2');
