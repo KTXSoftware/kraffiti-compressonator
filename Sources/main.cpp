@@ -3,7 +3,7 @@
 
 #define dynfunc extern "C" __declspec(dllexport)
 
-dynfunc char* format() {
+dynfunc const char* formats() {
 	return "astc";
 }
 
@@ -14,7 +14,7 @@ static bool CompressionCallback(float fProgress, DWORD_PTR pUser1, DWORD_PTR pUs
 	return false;
 }
 
-dynfunc void encode(int width, int height, int stride, int format, unsigned char* pixels_, int* out_width, int* out_height, int* out_size, void** out_data) {
+dynfunc void encode(int width, int height, int stride, const char* format, unsigned char* pixels, int* out_width, int* out_height, int* out_size, void** out_data) {
 	CMP_FORMAT destFormat = CMP_FORMAT_ASTC;
 
 	CMP_Texture srcTexture;
@@ -25,7 +25,7 @@ dynfunc void encode(int width, int height, int stride, int format, unsigned char
 	srcTexture.dwPitch = stride;
 	srcTexture.format = CMP_FORMAT_ARGB_8888;
 	srcTexture.dwDataSize = CMP_CalculateBufferSize(&srcTexture);
-	srcTexture.pData = pixels_;
+	srcTexture.pData = pixels;
 
 	CMP_Texture destTexture;
 	destTexture.dwSize = sizeof(destTexture);
