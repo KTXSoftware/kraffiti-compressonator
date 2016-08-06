@@ -4,7 +4,7 @@
 #define dynfunc extern "C" __declspec(dllexport)
 
 dynfunc const char* formats() {
-	return "astc";
+	return "astc|bc7";
 }
 
 static bool CompressionCallback(float fProgress, DWORD_PTR pUser1, DWORD_PTR pUser2) {
@@ -14,8 +14,20 @@ static bool CompressionCallback(float fProgress, DWORD_PTR pUser1, DWORD_PTR pUs
 	return false;
 }
 
+static CMP_FORMAT getFormat(const char* format) {
+	if (strcmp(format, "astc") == 0) {
+		return CMP_FORMAT_ASTC;
+	}
+	else if (strcmp(format, "bc7") == 0) {
+		return CMP_FORMAT_BC7;
+	}
+	else {
+		return CMP_FORMAT_ARGB_8888;
+	}
+}
+
 dynfunc void encode(int width, int height, int stride, const char* format, unsigned char* pixels, int* out_width, int* out_height, int* out_size, void** out_data) {
-	CMP_FORMAT destFormat = CMP_FORMAT_ASTC;
+	CMP_FORMAT destFormat = getFormat(format);
 
 	CMP_Texture srcTexture;
 	memset(&srcTexture, 0, sizeof(srcTexture));
