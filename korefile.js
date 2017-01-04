@@ -1,7 +1,6 @@
-const solution = new Solution('kraffiti-compressonator');
-const project = new Project('kraffiti-compressonator');
+const project = new Project('kraffiti-compressonator', __dirname);
 
-solution.dynlib = true;
+project.dynlib = true;
 
 project.addExclude('.git/**');
 project.addExclude('build/**');
@@ -17,7 +16,8 @@ project.addFiles('Compressonator/Compressonator/Header/Internal/CompClient.h');
 project.addFiles('Compressonator/Compressonator/Header/Internal/debug.h');
 project.addFiles('Compressonator/Compressonator/Header/Version.h');
 project.addFiles('Compressonator/Compressonator/Source/Codec/**');
-project.addExclude('Compressonator/Compressonator/Source/Codec/ASTC/ARM/astc_averages_and_directions_eigenvectors.cpp')
+project.addExclude('Compressonator/Compressonator/Source/Codec/ASTC/ARM/astc_averages_and_directions_eigenvectors.cpp');
+project.addExclude('Compressonator/Compressonator/Source/Codec/ASTC/ASTC_AMD_find_best_partitioning.cpp');
 project.addExclude('Compressonator/Compressonator/Source/Codec/ATI/Codec_ATI_TC.cpp');
 project.addFiles('Compressonator/Compressonator/Source/Compress.cpp');
 project.addFiles('Compressonator/Compressonator/Source/Compressonator.cpp');
@@ -50,6 +50,4 @@ project.addIncludeDir('Compressonator/Compressonator/Header/Codec/GT');
 project.addIncludeDir('Compressonator/Compressonator/Header/Internal');
 //project.addIncludeDir('Compressonator/Compressonator/Utils');
 
-solution.addProject(project);
-
-return solution;
+resolve(project);
