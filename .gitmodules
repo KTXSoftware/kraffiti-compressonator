@@ -1,4 +1,4 @@
 [submodule "Compressonator"]
 	path = Compressonator
-	url = ../Compressonator
+	url = https://github.com/Kode/Compressonator.git
 	branch = master
