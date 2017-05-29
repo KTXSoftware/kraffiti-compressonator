@@ -1,33 +1,23 @@
-#include <Compressonator.h>
+#include "../Compressonator/Compressonator/Examples/Compressonator_Test_Helpers.h"
 #include <stdio.h>
 
 #define dynfunc extern "C" __declspec(dllexport)
 
 dynfunc const char* formats() {
-	return "astc|bc7";
+	return "DXT1|DXT3|DXT5|DXT5_xGBR|DXT5_RxBG|DXT5_RBxG|DXT5_xRBG|DXT5_RGxB|DXT5_xGxR|ATI1N|ATI2N|ATI2N_XY|ATI2N_DXT5|BC1|BC2|BC3|BC4|BC5|BC6H|BC7|ATC_RGB|ATC_RGBA_Explicit|ATC_RGBA_Interpolated|ETC_RGB";
 }
 
 static bool CompressionCallback(float fProgress, DWORD_PTR pUser1, DWORD_PTR pUser2) {
 	UNREFERENCED_PARAMETER(pUser1);
 	UNREFERENCED_PARAMETER(pUser2);
-	printf("\rCompression progress = %2.0f", fProgress);
+	//printf("\rCompression progress = %2.0f", fProgress);
 	return false;
 }
 
-static CMP_FORMAT getFormat(const char* format) {
-	if (strcmp(format, "astc") == 0) {
-		return CMP_FORMAT_ASTC;
-	}
-	else if (strcmp(format, "bc7") == 0) {
-		return CMP_FORMAT_BC7;
-	}
-	else {
-		return CMP_FORMAT_ARGB_8888;
-	}
-}
-
 dynfunc void encode(int width, int height, int stride, const char* format, unsigned char* pixels, int* out_width, int* out_height, int* out_size, void** out_data) {
-	CMP_FORMAT destFormat = getFormat(format);
+	wchar_t wformat[64];
+	mbstowcs(wformat, format, 64);
+	CMP_FORMAT destFormat = ParseFormat(wformat);
 
 	CMP_Texture srcTexture;
 	memset(&srcTexture, 0, sizeof(srcTexture));
